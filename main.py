@@ -33,3 +33,12 @@ def build_model(hp):
       ),
       keras.layers.Dense(10, activation='softmax')  #output layer
   ])
+
+  model.compile(optimizer= keras.optimizers.Adam(hp.Choice('learning rate', values=[1e-2, 1e-3])),
+              loss= 'sparse_categorical_crossentropy',
+              metrics=['accurecy'])
+  
+  return model
+
+from kerastuner import RandomSearch
+from kerastuner.engine.hyperparameters import HyperParameters
